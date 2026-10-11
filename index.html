@@ -457,6 +457,28 @@ kbd{font:10.5px var(--font);padding:1px 5px;border:1px solid var(--row-line);bor
 .labLink div{display:grid;gap:4px}.labLink b{font-size:14.5px}.labLink span{font-size:12.5px;color:var(--muted)}
 .labLink a{color:var(--fg);font-weight:bold;text-decoration:none;border-bottom:1px solid var(--fg);padding-bottom:2px;white-space:nowrap}
 .labLink a:hover{color:var(--accent);border-color:var(--accent)}.labLink a:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+
+/* graph lab page: Enter the graph lab and Search buttons under its intro */
+#gpage .gActions{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+#gpage .gActions button{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:99px;font-size:13.5px;
+  border:1px solid var(--row-line);color:var(--fg);background:color-mix(in srgb,var(--panel) 60%,transparent);transition:border-color .15s,color .15s}
+#gpage .gActions #openLab{font-weight:bold;border-color:var(--fg)}
+#gpage .gActions button:hover{border-color:var(--accent);color:var(--accent)}
+#gpage .gActions button:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+#gpage .gActions button[hidden]{display:none}
+
+/* first board: the section links as clear buttons */
+#home .homeTop .homeNav{gap:10px;font-size:14px}
+#home .homeTop .homeNav a{color:var(--fg)!important;padding:9px 18px;border:1px solid var(--row-line)!important;border-radius:99px;
+  background:color-mix(in srgb,var(--panel) 60%,transparent);transition:border-color .15s,color .15s}
+#home .homeTop .homeNav a:hover{color:var(--accent)!important;border-color:var(--accent)!important}
+#home .homeTop .homeNav a:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+@media (max-width:760px){#home .homeTop .homeNav{gap:8px;max-width:340px}#home .homeTop .homeNav a{padding:8px 14px}}
+
+/* section headings at full heading size, above their content */
+.pageSec{grid-template-columns:minmax(0,1fr);gap:32px}
+.pageSec>h2{font:normal 38px/1.15 var(--font);letter-spacing:-.02em;padding-top:0}
+@media (max-width:760px){.pageSec>h2{font-size:30px}.pageSec{gap:24px}}
 </style>
 
 <canvas id="gl"></canvas>
@@ -468,7 +490,8 @@ kbd{font:10.5px var(--font);padding:1px 5px;border:1px solid var(--row-line);bor
 <div id="gpage" hidden tabindex="-1">
   <div class="gBar"><div class="in"><button id="gBack" type="button">← Abubakr Batalvi</button><span class="gTitle">Graph lab</span><button id="gFind" type="button">Search <kbd>/</kbd></button></div></div>
   <div class="gWrap">
-    <header class="gHead"><h1>Graph lab</h1><p>Interactive pages rebuilt from my Desmos graphs. Each one can be panned, zoomed and adjusted. Start with a few favourites, or browse them all by topic.</p></header>
+    <header class="gHead"><h1>Graph lab</h1><p>Interactive pages rebuilt from my Desmos graphs. Each one can be panned, zoomed and adjusted. Start with a few favourites, or browse them all by topic.</p>
+      <div class="gActions"><button id="openLab" type="button">Enter the graph lab →</button><button id="homeResume" type="button" hidden></button><button id="homeFind" type="button" title="Search graphs, papers and projects (/ or Ctrl+K)">Search <kbd>/</kbd></button></div></header>
     <section class="pageSec" id="featured" data-title="Selected graphs">
       <h2>Selected graphs</h2>
       <div class="feat" id="feat"></div>
@@ -495,9 +518,8 @@ kbd{font:10.5px var(--font);padding:1px 5px;border:1px solid var(--row-line);bor
     <header class="homeTop">
       <img class="portrait" src="images/portrait.jpg" width="120" height="120" alt="Abubakr Batalvi" decoding="async">
       <h1>Abubakr Batalvi</h1>
-      <p>Independent mathematics research in analytic number theory, approximation theory and numerical analysis. Below are my Desmos graphs, rebuilt as interactive pages you can pan, zoom and adjust.</p>
+      <p>Independent mathematics research in analytic number theory, approximation theory and numerical analysis.</p>
       <div class="homeLinks">
-        <div class="heroActions"><button id="openLab">Enter the graph lab →</button><button id="homeResume" hidden></button><button id="homeFind" type="button" title="Search graphs, papers and projects (/ or Ctrl+K)">Search <kbd>/</kbd></button></div>
         <nav class="homeNav" aria-label="Page"><a href="#about" data-jump="about">About</a><a href="#research" data-jump="research">Research</a><a href="#projects" data-jump="projects">Projects</a><a href="#graphs" data-page="graphs">Graphs</a><a href="#contact" data-jump="contact">Contact</a></nav>
         <div class="heroPrefs"><label id="homeTheme" for="homeThemeBox"><input type="checkbox" id="homeThemeBox"> Light mode</label><label id="homePlain" for="homePlainBox" title="Ordinary scrolling: no sliding boards or erasing"><input type="checkbox" id="homePlainBox"> Plain scrolling</label></div>
       </div>
@@ -508,7 +530,7 @@ kbd{font:10.5px var(--font);padding:1px 5px;border:1px solid var(--row-line);bor
       <div class="prose">
         <p>I’m a student in the Maryland area who does independent mathematics research, mostly in analytic number theory and approximation theory. Most of my work starts in Desmos: I build a graph to look at a question, try an idea against it, and keep the ideas that hold up when the numbers are checked. Several times this has led me back to known results from another direction, among them Stirling’s formula, Chebyshev nodes and Nadaraya–Watson regression.</p>
         <p>The question I return to most is how well smooth functions can describe the primes: how closely the logarithmic integral Li(x) and Riemann’s R(x) follow the prime counting function π(x), how to build curves that stay above π(x), and whether there is a natural way to define π(x), or the n-th prime, between whole numbers. Alongside that I like building approximations by hand: fit a formula, study what is left over, and fit that.</p>
-        <p>Outside of pure math I co-founded TrXon with Rodrigo Cartagena, an off-road self-driving vehicle project. Its path planner interpolates sensor checkpoints on both sides of a trail and averages them to find the centre line, which is where several of the interpolation pages here come from. I’m also in The Knowledge Society’s Activate program, tutor SAT math on Schoolhouse.world, and take dual-enrollment courses at the College of Southern Maryland.</p>
+        <p>Outside of pure math I co-founded TrXon with Rodrigo Cartagena, an off-road self-driving vehicle project. Its path planner interpolates sensor checkpoints on both sides of a trail and averages them to find the centre line, which is where several of the interpolation pages here come from. I’m also in The Knowledge Society’s Activate program and take dual-enrollment courses at the College of Southern Maryland.</p>
       </div>
     </section>
 
@@ -2393,7 +2415,7 @@ function buildHome(){const list=$('#homeList'),toc=$('#homeToc');list.textConten
       a.querySelector('.m').textContent=homeView==='sec'?s.graph+' · '+s.date:s.cat+' · '+s.date;
       a.onclick=e=>{e.preventDefault();openLab(i);};li.appendChild(a);ol.appendChild(li);}
     sec.append(h,ol);list.appendChild(sec);});homeImgs();filterHome(($('#homeSearch')||{}).value||'');
-  $('#homeFoot').textContent=`${SIMS.length} graphs in ${CATS.length} sections · © ${new Date().getFullYear()} Abubakr Batalvi`;
+  $('#homeFoot').textContent=`© ${new Date().getFullYear()} Abubakr Batalvi`;
   filterHome($('#homeSearch').value);if(window.homeSpy)homeSpy();}
 let homeTopic='';const PREVIEW=3;
 function filterHome(q){q=q.trim().toLowerCase();let n=0;const full=!!q||!!homeTopic;
@@ -2409,7 +2431,7 @@ function filterHome(q){q=q.trim().toLowerCase();let n=0;const full=!!q||!!homeTo
 let labFrom='home';
 function viewShow(el){el.hidden=false;requestAnimationFrame(()=>el.classList.remove('fading'));}
 function viewHide(el){if(el.hidden)return;el.classList.add('fading');setTimeout(()=>{if(el.classList.contains('fading'))el.hidden=true;},500);}
-function showGraphs(fromHistory){const fromLab=labActive;labActive=false;if(cur&&fromLab){lastSeen=idx;buildHome();}
+function showGraphs(fromHistory){const fromLab=labActive;labActive=false;if(cur&&fromLab){lastSeen=idx;const r=$('#homeResume');r.hidden=false;r.textContent='Continue: '+cur.name+' →';buildHome();}
   const g=$('#gpage');viewShow(g);viewHide($('#home'));
   requestAnimationFrame(()=>{if(fromLab&&window.returnToGraph)returnToGraph();else if(!fromHistory)g.scrollTop=0;g.focus({preventScroll:true});if(window.gSpy)gSpy();});
   try{if(location.hash!=='#graphs'){if(fromHistory)history.replaceState(null,'','#graphs');else history.pushState(null,'','#graphs');}}catch(e){}}
@@ -2418,7 +2440,7 @@ function showHome(fromHistory){const fromLab=labActive;labActive=false;viewHide(
 function openLab(i,fromHistory){if(!labActive)labFrom=!$('#gpage').hidden?'graphs':'home';if(!fromHistory){try{history.pushState(null,'','#'+SIMS[i].id);}catch(e){}}labActive=true;setSim(i);
   const b=$('#brand');if(b){b.title=labFrom==='graphs'?'Back to the graph lab (Esc)':'Back to the front page (Esc)';b.setAttribute('aria-label','Abubakr Batalvi: '+b.title.replace(' (Esc)','').toLowerCase());}
   for(const v of [$('#home'),$('#gpage')])if(!v.hidden){v.classList.add('fading');setTimeout(()=>{if(labActive)v.hidden=true;},500);}}
-function frontPage(direct){buildHome();buildPages();loadThumbs();$('#homeSearch').oninput=e=>filterHome(e.target.value);$('#openLab').onclick=()=>showGraphs();$('#brand').onclick=()=>leaveLab();homeExtras();
+function frontPage(direct){buildHome();buildPages();loadThumbs();$('#homeSearch').oninput=e=>filterHome(e.target.value);$('#openLab').onclick=()=>openLab(idx);$('#brand').onclick=()=>leaveLab();homeExtras();
   $('#homeThemeBox').checked=LIGHT;$('#homeThemeBox').onchange=e=>setTheme(e.target.checked,true);
   if(direct)return; // a link straight to one graph skips the intro
   labActive=false;const h=$('#home');h.classList.remove('fading');h.hidden=false; // sits behind the opaque splash
@@ -2432,7 +2454,7 @@ function homeExtras(){const home=$('#home'),bar=$('#homeBar');boardGrain();board
   window.homeSpy=()=>{if(home.hidden)return;const links=[...document.querySelectorAll('#homeToc a')],secs=[...document.querySelectorAll('.homeSec:not([hidden])')];let on=null;
     for(const s of secs)if(vTop(s)<160)on=s;if(!on)on=secs[0];
     links.forEach(a=>a.classList.toggle('on',!!on&&a.getAttribute('href')==='#'+on.id));
-    const show=home.scrollTop>0&&home.scrollTop>natTop($('#about'))-60;bar.classList.toggle('show',show);let lab=on&&on.dataset.title;for(const ps of document.querySelectorAll('.pageSec'))if(vTop(ps)<160&&!(on&&vTop(on)<160&&vTop(on)>vTop(ps)))lab=ps.dataset.title;bar.setAttribute('aria-hidden',String(!show));
+    const show=home.scrollTop>0&&home.scrollTop>natTop($('#about'))-60;bar.classList.toggle('show',show);let lab='';for(const ps of document.querySelectorAll('#home .pageSec'))if(vTop(ps)<160)lab=ps.dataset.title;bar.setAttribute('aria-hidden',String(!show));
     bar.querySelectorAll('button').forEach(b=>b.tabIndex=show?0:-1);$('#barSec').textContent=show?(lab||''):'';};
   home.addEventListener('scroll',homeSpy,{passive:true});homeSpy();
   $('#barName').onclick=()=>home.scrollTo({top:0,behavior:'smooth'});
@@ -2739,7 +2761,7 @@ function navInit(){const home=$('#home');
    $('#cardRes').textContent=pdfs+' papers and notes'+(arts?', '+arts+' articles':'');
    $('#cardProj').textContent=PROJECTS.map(p=>p.title.split(/[:(]/)[0].replace(/^Water Scarcity Satellite Mapping in /,'').trim()).join(' · ');
    for(const c of document.querySelectorAll('.heroCards [data-jump]'))c.onclick=()=>homeJump($('#'+c.dataset.jump));}
-  for(const t of document.querySelectorAll('.toTop'))t.onclick=()=>{const sc=t.closest('#gpage')||home;sc.scrollTo({top:0,behavior:smoothOK()?'smooth':'auto'});const f=sc===home?$('#openLab'):$('#gBack');if(f)setTimeout(()=>f.focus({preventScroll:true}),smoothOK()?700:0);};
+  for(const t of document.querySelectorAll('.toTop'))t.onclick=()=>{const sc=t.closest('#gpage')||home;sc.scrollTo({top:0,behavior:smoothOK()?'smooth':'auto'});const f=sc===home?document.querySelector('.homeTop .homeNav a'):$('#gBack');if(f)setTimeout(()=>f.focus({preventScroll:true}),smoothOK()?700:0);};
 
   /* ---- one key moves one board: Page Down / Space / Down arrow forward, Page Up / Shift+Space / Up arrow back.
      Inside a board taller than the screen the keys scroll it normally until its end is on screen. ---- */
