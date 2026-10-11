@@ -2545,8 +2545,8 @@ function boardsInit(){const home=$('#home'),wrap=home.querySelector('.homeWrap')
   BOARDS=[home.querySelector('.homeTop'),...['about','research','projects','contact'].map(id=>$('#'+id))].filter(Boolean);
   const reduce=matchMedia('(prefers-reduced-motion: reduce)');
   /* wrap each board; every board but the last gets a stretch of scroll after it, during which it stays put and is erased */
-  /* only the first boards are layered (held, erased, slid away); the board after them is revealed from behind, the rest scroll normally */
-  const LAYERED=2;
+  /* only the first board is layered (held, erased, slid away); About is revealed from behind it, and the rest scroll normally */
+  const LAYERED=1;
   WRAPS=BOARDS.map((b,k)=>{b.classList.add('board');const w=document.createElement('div');w.className='boardWrap'+(k>LAYERED?' flat':'');w.style.zIndex=String(BOARDS.length-k);
     b.parentNode.insertBefore(w,b);w.appendChild(b);
     if(k<LAYERED){const h=document.createElement('div');h.className='boardHold';h.setAttribute('aria-hidden','true');w.appendChild(h);}
@@ -2554,7 +2554,7 @@ function boardsInit(){const home=$('#home'),wrap=home.querySelector('.homeWrap')
   home.classList.add('boardsOn');
   /* plain scrolling (a visitor's choice) turns the boards into an ordinary page; touch screens get a shorter erase */
   const still=()=>reduce.matches||home.classList.contains('plain'),touch=matchMedia('(pointer: coarse)');
-  const measure=()=>{if(home.hidden)return;const H=home.clientHeight;HOLD=still()?0:Math.round(H*(touch.matches?.2:.25));let y=WRAPS[0].offsetTop;
+  const measure=()=>{if(home.hidden)return;const H=home.clientHeight;HOLD=still()?0:Math.round(H*(touch.matches?.32:.4));let y=WRAPS[0].offsetTop;
     BOARDS.forEach((b,k)=>{const hold=k<LAYERED?HOLD:0;boardTop[k]=y;boardH[k]=b.offsetHeight;
       const hd=WRAPS[k].querySelector('.boardHold');if(hd)hd.style.height=hold+'px';
       /* the wrapper is held at the top of the screen until its own place arrives (bottom offset = screen height - wrapper height);
