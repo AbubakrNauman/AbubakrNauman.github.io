@@ -2454,7 +2454,7 @@ function homeExtras(){const home=$('#home'),bar=$('#homeBar');boardGrain();board
   window.homeSpy=()=>{if(home.hidden)return;const links=[...document.querySelectorAll('#homeToc a')],secs=[...document.querySelectorAll('.homeSec:not([hidden])')];let on=null;
     for(const s of secs)if(vTop(s)<160)on=s;if(!on)on=secs[0];
     links.forEach(a=>a.classList.toggle('on',!!on&&a.getAttribute('href')==='#'+on.id));
-    const show=home.scrollTop>0&&home.scrollTop>natTop($('#about'))-60;bar.classList.toggle('show',show);let lab='';for(const ps of document.querySelectorAll('#home .pageSec'))if(vTop(ps)<160)lab=ps.dataset.title;bar.setAttribute('aria-hidden',String(!show));
+    const show=home.scrollTop>0&&home.scrollTop>natTop($('#about'))-60;bar.classList.toggle('show',show);let lab='';const fps=[...document.querySelectorAll('#home .pageSec')];for(const ps of fps)if(vTop(ps)<160)lab=ps.dataset.title;if(home.scrollTop>=home.scrollHeight-home.clientHeight-2&&fps.length)lab=fps[fps.length-1].dataset.title;bar.setAttribute('aria-hidden',String(!show));
     bar.querySelectorAll('button').forEach(b=>b.tabIndex=show?0:-1);$('#barSec').textContent=show?(lab||''):'';};
   home.addEventListener('scroll',homeSpy,{passive:true});homeSpy();
   $('#barName').onclick=()=>home.scrollTo({top:0,behavior:'smooth'});
